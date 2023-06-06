@@ -63,10 +63,9 @@ def update_graph(Manager):
 
     return {
         'data': [trace1, trace2, trace3, trace4],
-        'layout':
-        go.Layout(
-            title='Customer Order Status for {}'.format(Manager),
-            barmode='stack')
+        'layout': go.Layout(
+            title=f'Customer Order Status for {Manager}', barmode='stack'
+        ),
     }
 
 

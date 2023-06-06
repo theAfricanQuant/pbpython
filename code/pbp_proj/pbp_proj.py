@@ -14,7 +14,7 @@ def summarize_sales():
 
     # Connect to sqlite db
     db_file = os.path.join(os.path.dirname(wb.fullname), 'pbp_proj.db')
-    engine = create_engine(r"sqlite:///{}".format(db_file))
+    engine = create_engine(f"sqlite:///{db_file}")
 
     # Retrieve the account number from the excel sheet as an int
     account = Range('B2').options(numbers=int).value
@@ -28,7 +28,7 @@ def summarize_sales():
     Range('A5:F100').clear_contents()
 
     # Create SQL query
-    sql = 'SELECT * from sales WHERE account="{}" AND date BETWEEN "{}" AND "{}"'.format(account, start_date, end_date)
+    sql = f'SELECT * from sales WHERE account="{account}" AND date BETWEEN "{start_date}" AND "{end_date}"'
 
     # Read query directly into a dataframe
     sales_data = pd.read_sql(sql, engine)
@@ -40,7 +40,7 @@ def summarize_sales():
 
     # Output the results
     if summary.empty:
-        Range('A5').value = "No Data for account {}".format(account)
+        Range('A5').value = f"No Data for account {account}"
     else:
         Range('A5').options(index=True).value = summary
         Range('E5').value = "Total Sales"

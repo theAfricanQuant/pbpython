@@ -17,8 +17,7 @@ from functools import lru_cache
 # Define a cached function to read in the CSV file and return a dataframe
 @lru_cache()
 def load_data():
-    df = pd.read_csv("Aussie_Wines_Plotting.csv", index_col=0)
-    return df
+    return pd.read_csv("Aussie_Wines_Plotting.csv", index_col=0)
 
 # Column order for displaying the details of a specific review
 col_order = ["price", "points", "variety", "province", "description"]
@@ -94,7 +93,7 @@ def select_reviews():
         selected = selected[selected.title.str.contains(title_val) == True]
 
     # Example showing how to update the description
-    desc.text = "Province: {} and Price < {}".format(province_val, max_price)
+    desc.text = f"Province: {province_val} and Price < {max_price}"
     return selected
 
 
@@ -110,14 +109,10 @@ def selection_change(attrname, old, new):
     is used. Determine which items are selected and show the details below
     the graph
     """
-    selected = source.selected["1d"]["indices"]
+    if selected := source.selected["1d"]["indices"]:
+        # Need to get a list of the active reviews so the indices will match up
+        df_active = select_reviews()
 
-    # Need to get a list of the active reviews so the indices will match up
-    df_active = select_reviews()
-
-    # If something is selected, then get those details and format the results
-    # as an HTML table
-    if selected:
         data = df_active.iloc[selected, :]
         temp = data.set_index("title").T.reindex(index=col_order)
         details.text = temp.style.render()

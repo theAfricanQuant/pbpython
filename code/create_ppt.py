@@ -74,10 +74,13 @@ def create_pivot(df, index_list=["Manager", "Rep", "Product"],
     Take a DataFrame and create a pivot table
     Return it as a DataFrame pivot table
     """
-    table = pd.pivot_table(df, index=index_list,
-                           values=value_list,
-                           aggfunc=[np.sum, np.mean], fill_value=0)
-    return table
+    return pd.pivot_table(
+        df,
+        index=index_list,
+        values=value_list,
+        aggfunc=[np.sum, np.mean],
+        fill_value=0,
+    )
 
 
 def create_chart(df, filename):
@@ -119,7 +122,7 @@ def create_ppt(input, output, report_data, chart):
         #print(report_data.xs(manager, level=0).reset_index())
         slide = prs.slides.add_slide(prs.slide_layouts[2])
         title = slide.shapes.title
-        title.text = "Report for {}".format(manager)
+        title.text = f"Report for {manager}"
         top = Inches(1.5)
         left = Inches(0.25)
         width = Inches(9.25)

@@ -6,6 +6,7 @@ Purpose of this example is to pull google sheet data into
 a pandas DataFrame.
 
 """
+
 from __future__ import print_function
 import gspread
 from oauth2client.client import SignedJwtAssertionCredentials
@@ -25,7 +26,7 @@ credentials = SignedJwtAssertionCredentials(json_key['client_email'],
 gc = gspread.authorize(credentials)
 print("The following sheets are available")
 for sheet in gc.openall():
-    print("{} - {}".format(sheet.title, sheet.id))
+    print(f"{sheet.title} - {sheet.id}")
 # Open up the workbook based on the spreadsheet name
 workbook = gc.open(SPREADSHEET)
 # Get the first sheet

@@ -38,9 +38,9 @@ def analyze_ppt(input, output):
         # Not every slide has to have a title
         try:
             title = slide.shapes.title
-            title.text = 'Title for Layout {}'.format(index)
+            title.text = f'Title for Layout {index}'
         except AttributeError:
-            print("No Title for Layout {}".format(index))
+            print(f"No Title for Layout {index}")
         # Go through all the placeholders and identify them by index and type
         for shape in slide.placeholders:
             if shape.is_placeholder:
@@ -48,10 +48,10 @@ def analyze_ppt(input, output):
                 # Do not overwrite the title which is just a special placeholder
                 try:
                     if 'Title' not in shape.text:
-                        shape.text = 'Placeholder index:{} type:{}'.format(phf.idx, shape.name)
+                        shape.text = f'Placeholder index:{phf.idx} type:{shape.name}'
                 except AttributeError:
-                    print("{} has no text attribute".format(phf.type))
-                print('{} {}'.format(phf.idx, shape.name))
+                    print(f"{phf.type} has no text attribute")
+                print(f'{phf.idx} {shape.name}')
     prs.save(output)
 
 

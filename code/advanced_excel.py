@@ -23,7 +23,7 @@ def format_excel(writer, df_size):
     # subtract 1 from the column to handle because we don't care about index
     table_end = xl_rowcol_to_cell(df_size[0] + 1, df_size[1] - 1)
     # This assumes we start in the left hand corner
-    table_range = 'A1:{}'.format(table_end)
+    table_range = f'A1:{table_end}'
     worksheet.add_table(table_range, {'columns': [{'header': 'account',
                                                    'total_string': 'Total'},
                                                   {'header': 'Total Sales',
